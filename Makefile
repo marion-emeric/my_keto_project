@@ -1,6 +1,6 @@
 PHP_CONTAINER = "php"
 DB_CONTAINER = "database"
-PATH_ENV = "./app/.env.local"
+PATH_ENV = "./.env.local"
 
 # Executables
 EXEC_PHP      = php
@@ -50,6 +50,9 @@ phpsh: ## Connect to the PHP container
 	@$(DOCKER_COMP) --env-file $(PATH_ENV) exec $(PHP_CONTAINER) bash
 
 ## -- DB ————————————————————————————————————————————————————————————————
+dbinit: ## Initialize database
+	@./docker/mysql/init.sh
+
 db: ## Run mysql command line; use c= to pass arguments example c="--version"
 	@$(eval c ?=)
 	@$(DOCKER_COMP) --env-file $(PATH_ENV) exec $(DB_CONTAINER) mysql $(c)

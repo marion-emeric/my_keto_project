@@ -3,28 +3,33 @@ version: '3.8'
 services:
     database:
         container_name: database
+        env_file:
+            - ./.env.local
         image: mariadb:10.5.8
         command: --default-authentication-plugin=mysql_native_password
         environment:
-            MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
-            MYSQL_DATABASE: '${MYSQL_DATABASE}'
-            MYSQL_USER: '${MYSQL_USER}'
-            MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+            MYSQL_ROOT_PASSWORD: 'K2ch7Kbtu4Br'
+            MYSQL_DATABASE: 'keto_db'
+            MYSQL_USER: 'marion'
+            MYSQL_PASSWORD: '38lSrvb2pee0'
         ports:
             - '${MYSQL_PORT}:3306'
         volumes:
             - ./docker/mysql:/var/lib/mysql
+            - db_data:/var/lib/mysql:cached
 
     php:
         container_name: php
+        env_file:
+            - ./.env.local
         build:
             context: .
-            dockerfile: ./docker/php/Dockerfile
+            dockerfile: docker/php/Dockerfile
         ports:
             - '${PHP_PORT}:9000'
         user: 'www-data'
         volumes:
-            - ./app:/var/www/${PROJECT_NAME}
+            - .:/var/www/${PROJECT_NAME}
         environment:
             - TZ=Europe/Paris
         working_dir: /var/www/${PROJECT_NAME}
@@ -35,11 +40,13 @@ services:
 
     nginx:
         container_name: nginx
+        env_file:
+            - ./.env.local
         image: nginx:stable-alpine
         ports:
             - '${HTTP_PORT}:80'
         volumes:
-            - ./app:/var/www/${PROJECT_NAME}
+            - .:/var/www/${PROJECT_NAME}
             - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
         environment:
             - TZ=Europe/Paris
@@ -49,3 +56,7 @@ services:
         depends_on:
             - php
             - database
+
+volumes:
+    db_data:
+        driver: local

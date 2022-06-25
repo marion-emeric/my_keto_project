@@ -15,5 +15,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
+# Permission fix
+RUN usermod -u 1000 www-data \
+    # clean
+    && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && mkdir -p /var/www/app/cache && chown www-data: /var/www/app/cache \
+    && mkdir -p /var/www/var && chown www-data: /var/www/var
+
 EXPOSE 9001
 
