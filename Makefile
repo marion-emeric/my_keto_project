@@ -75,6 +75,10 @@ sf: ## List all Symfony commands
 warmup: ## Clear the cache. DID YOU CLEAR YOUR CACHE????
 	@$(DOCKER_COMP) --env-file $(PATH_ENV) exec $(PHP_CONTAINER) $(SYMFONY) cache:warmup
 
+symfony:## Run symfony command in the container;
+	@$(eval c ?=)
+	@@$(DOCKER_COMP) --env-file $(PATH_ENV) exec $(PHP_CONTAINER) $(SYMFONY_BIN) $(c)
+
 ## —— Tests ✅ —————————————————————————————————————————————————————————————————
 
 phpunit: ## PHP Unit Test

@@ -10,6 +10,10 @@ Stacks: Docker, php, mariadb, nginx, Symfony
 
 `make up`
 
+## Back office (EasyAdmin)
+
+To access to the Back office,  go to the route : `/admin`
+
 ## Tests
 
 Run `make phpunit`
