@@ -1,0 +1,10 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: '%env(MAILER_SENDER)%'
+#            recipients: [ 'foo@example.com', 'bar@example.com' ]
+        headers:
+            From: 'Marion <%env(MAILER_SENDER)%>'
+#            Bcc: 'baz@example.com'
+#            X-Custom-Header: 'foobar'

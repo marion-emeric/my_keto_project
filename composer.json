@@ -14,17 +14,23 @@
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.0.*",
+        "symfony/google-mailer": "6.0.*",
+        "symfony/mailer": "6.0.*",
+        "symfony/password-hasher": "6.0.*",
         "symfony/proxy-manager-bridge": "6.0.*",
         "symfony/runtime": "6.0.*",
         "symfony/security-bundle": "6.0.*",
-        "symfony/yaml": "6.0.*"
+        "symfony/uid": "6.0.*",
+        "symfony/yaml": "6.0.*",
+        "symfonycasts/reset-password-bundle": "^1.13",
+        "symfonycasts/verify-email-bundle": "^1.10"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "friendsofphp/php-cs-fixer": "^3.8",
         "phpstan/phpstan": "^1.7",
         "phpunit/phpunit": "^9.5",
-        "vsymfony/browser-kit": "6.0.*",
+        "symfony/browser-kit": "6.0.*",
         "symfony/css-selector": "6.0.*",
         "symfony/maker-bundle": "^1.43",
         "symfony/phpunit-bridge": "^6.1"

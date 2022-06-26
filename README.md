@@ -4,9 +4,7 @@ Stacks: Docker, php, mariadb, nginx, Symfony
 
 ## Start the project
 
-1. Edit global variable .env.local
-
-`app/.env.local`
+1. Edit global variable .env (refer to .env.dist)
 
 2. Use "Make" commands.
 
