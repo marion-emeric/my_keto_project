@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FeedRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,32 +17,32 @@ class Feed
     private $id;
 
     #[ORM\Column(type: 'string', length: 160)]
-    private $title;
+    private string $title;
 
     #[ORM\Column(type: 'string', length: 50)]
-    private $author;
+    private string $author;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $url;
+    private string $url;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $picture;
+    private ?string $picture;
 
     #[ORM\Column(type: 'date')]
-    private $updated_at;
+    private DateTimeInterface $updated_at;
 
     #[ORM\Column(type: 'string', length: 50)]
-    private $lang;
+    private string $lang;
 
     #[ORM\Column(type: 'boolean')]
-    private $enabled;
+    private bool $enabled = true;
 
     #[ORM\ManyToOne(targetEntity: FeedCategory::class, inversedBy: 'feeds')]
     #[ORM\JoinColumn(nullable: false)]
-    private $category;
+    private FeedCategory $category;
 
     #[ORM\OneToMany(mappedBy: 'feed', targetEntity: Recipe::class)]
-    private $recipes;
+    private ArrayCollection $recipes;
 
     public function __construct()
     {
@@ -150,9 +151,9 @@ class Feed
     }
 
     /**
-     * @return Collection<int, Recipe>
+     * @return ArrayCollection<int, Recipe>
      */
-    public function getRecipes(): Collection
+    public function getRecipes(): ArrayCollection
     {
         return $this->recipes;
     }
@@ -169,11 +170,9 @@ class Feed
 
     public function removeRecipe(Recipe $recipe): self
     {
-        if ($this->recipes->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
-            if ($recipe->getFeed() === $this) {
-                $recipe->setFeed(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->recipes->removeElement($recipe) && $recipe->getFeed() === $this) {
+            $recipe->setFeed(null);
         }
 
         return $this;

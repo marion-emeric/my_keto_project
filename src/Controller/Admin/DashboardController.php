@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Admin;
+use App\Entity\Feed;
+use App\Entity\FeedCategory;
+use App\Entity\Recipe;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -26,10 +29,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToUrl('Go back to website', null, '/');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
-        yield MenuItem::linkToCrud('Admin', 'fas fa-user', Admin::class);
+        yield MenuItem::linkToCrud('Admin', 'fas fa-lock', Admin::class);
+        yield MenuItem::linkToCrud('Feed categories', 'fas fa-certificate', FeedCategory::class);
+        yield MenuItem::linkToCrud('Feeds', 'fas fa-rss', Feed::class);
+        yield MenuItem::linkToCrud('Recipes', 'fas fa-newspaper', Recipe::class);
         yield MenuItem::linkToLogout('Logout', 'fa fa-exit');
+        yield MenuItem::linkToUrl('Go back to website', null, '/');
     }
 }

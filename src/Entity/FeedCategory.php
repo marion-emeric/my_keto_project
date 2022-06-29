@@ -26,6 +26,11 @@ class FeedCategory
         $this->feeds = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,11 +68,9 @@ class FeedCategory
 
     public function removeFeed(Feed $feed): self
     {
-        if ($this->feeds->removeElement($feed)) {
-            // set the owning side to null (unless already changed)
-            if ($feed->getCategory() === $this) {
-                $feed->setCategory(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->feeds->removeElement($feed) && $feed->getCategory() === $this) {
+            $feed->setCategory(null);
         }
 
         return $this;
