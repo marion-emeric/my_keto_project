@@ -16,10 +16,10 @@ class FeedCategory
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
-    private $name;
+    private string $name;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Feed::class)]
-    private $feeds;
+    private Collection $feeds;
 
     public function __construct()
     {

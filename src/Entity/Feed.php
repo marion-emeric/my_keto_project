@@ -25,7 +25,7 @@ class Feed
     #[ORM\Column(type: 'string', length: 255)]
     private string $url;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $picture;
 
     #[ORM\Column(type: 'date')]
@@ -42,7 +42,7 @@ class Feed
     private FeedCategory $category;
 
     #[ORM\OneToMany(mappedBy: 'feed', targetEntity: Recipe::class)]
-    private ArrayCollection $recipes;
+    private Collection $recipes;
 
     public function __construct()
     {

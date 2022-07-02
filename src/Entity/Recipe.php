@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Eko\FeedBundle\Item\Reader\ItemInterface;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
-class Recipe
+class Recipe implements ItemInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -14,23 +17,23 @@ class Recipe
     private $id;
 
     #[ORM\Column(type: 'string', length: 160)]
-    private $title;
+    private string $title;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $url;
+    private string $url;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $picture;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $picture;
 
     #[ORM\Column(type: 'date')]
-    private $updated_at;
+    private DateTimeInterface $updated_at;
 
     #[ORM\Column(type: 'text')]
-    private $description;
+    private string $description;
 
     #[ORM\ManyToOne(targetEntity: Feed::class, inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
-    private $feed;
+    private ?Feed $feed;
 
     public function getId(): ?int
     {
@@ -102,10 +105,50 @@ class Recipe
         return $this->feed;
     }
 
-    public function setFeed(?Feed $feed): self
+    public function setFeed(Feed $feed): self
     {
         $this->feed = $feed;
 
+        return $this;
+    }
+
+    /**
+     * @param $title
+     * @return Recipe
+     */
+    public function setFeedItemTitle($title): static
+    {
+        $this->setTitle($title);
+        return $this;
+    }
+
+    /**
+     * @param $description
+     * @return Recipe
+     */
+    public function setFeedItemDescription($description): static
+    {
+        $this->setDescription($description);
+        return $this;
+    }
+
+    /**
+     * @param $link
+     * @return Recipe
+     */
+    public function setFeedItemLink($link): static
+    {
+        $this->setUrl($link);
+        return $this;
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return Recipe
+     */
+    public function setFeedItemPubDate(DateTime $date): static
+    {
+        $this->setUpdatedAt($date);
         return $this;
     }
 }
