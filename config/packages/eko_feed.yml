@@ -1,5 +1,5 @@
 eko_feed:
-    hydrator: feed.hydrator # Optional, if you use entity hydrating with a custom hydrator
+#    hydrator: feed.hydrator # Optional, if you use entity hydrating with a custom hydrator
 #    translation_domain: test # Optional, if you want to use a custom translation domain
 #    feeds:
 #        article:

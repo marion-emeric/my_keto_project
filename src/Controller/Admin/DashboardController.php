@@ -34,8 +34,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Admin', 'fas fa-lock', Admin::class);
         yield MenuItem::linkToCrud('Feed categories', 'fas fa-certificate', FeedCategory::class);
         yield MenuItem::linkToCrud('Feeds', 'fas fa-rss', Feed::class);
+        yield MenuItem::linkToUrl('Generate Feeds', 'fa-solid fa-download', '/feeds/generate');
         yield MenuItem::linkToCrud('Recipes', 'fas fa-newspaper', Recipe::class);
-        yield MenuItem::linkToLogout('Logout', 'fa fa-exit');
-        yield MenuItem::linkToUrl('Go back to website', null, '/');
+        yield MenuItem::linkToLogout('Logout', 'fa-solid fa-right-from-bracket');
+        yield MenuItem::linkToUrl('Go back to website', 'fa-solid fa-person-walking-arrow-right', '/');
     }
 }
